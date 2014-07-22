@@ -12,22 +12,14 @@
 define([
   "app",
   "api",
-  "addons/indexes/resources",
-  "addons/indexes/views"
+  "addons/indexes/views",
+  "addons/indexes/routes-viewindexes",
+  "addons/indexes/routes-filter",
+  "addons/indexes/routes-show",
+  "addons/indexes/routes-list",
 ],
 
-function (app, FauxtonAPI, Resources, Views) {
-
-  var ViewIndexes = FauxtonAPI.RouteObject.extend({});
-
-  var FilterIndexes = FauxtonAPI.RouteObject.extend({});
-
-  var ShowIndexes = FauxtonAPI.RouteObject.extend({});
-
-  var ListIndexes = FauxtonAPI.RouteObject.extend({});
-
-
-  Resources.RouteObjects = [ViewIndexes, FilterIndexes, ShowIndexes, ListIndexes];
-
-  return Resources;
+function (app, FauxtonAPI, Views, ViewIndex, Filter, Show, List) {
+  Views.RouteObjects = [ViewIndex, Filter, Show, List];
+  return Views;
 });
