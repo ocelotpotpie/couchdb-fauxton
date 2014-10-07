@@ -96,19 +96,6 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
         hasReduce: false,
         showPreview: false,
       }));*/
-
-      //Moved the apibar view into the components file so you can include it in your views
-      this.apiBar = this.insertView("#header-api-bar", new Components.ApiBar({
-        endpoint: this.apiEndpoints[0],
-        documentation: this.apiEndpoints[1]
-      }));
-    },
-
-    updateApiUrl: function(api){
-      //this will update the api bar when the route changes
-      //you can find the method that updates it in components.js Components.ApiBar()
-      this.apiEndpoints = api;
-      this.apiBar && this.apiBar.update(api);
     },
 
     serialize: function() {
@@ -674,7 +661,7 @@ function(app, FauxtonAPI, Components, Documents, Databases, Views, QueryOptions,
         if (this.bulkDeleteDocsCollection) {
           isChecked = this.bulkDeleteDocsCollection.get(doc.id);
         }
-        this.rows[doc.id] = this.insertView("table.all-docs tbody", new this.nestedView({
+        this.rows[doc.get('id')] = this.insertView("table.all-docs tbody", new this.nestedView({
           model: doc,
           checked: isChecked
         }));

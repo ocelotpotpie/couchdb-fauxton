@@ -12,17 +12,16 @@
 
 define([
   "app",
+  "testUtils"
+], function (app, testUtils) {
+  var assert = testUtils.assert;
 
-  "api",
-
-  // Modules
-  "addons/config/routes"
-],
-
-function(app, FauxtonAPI, Config) {
-  Config.initialize = function() {
-    FauxtonAPI.addHeaderLink({title: "Config", href: "#_config", icon:"fonticon-cog", className: 'config'});
-  };
-
-  return Config;
+  describe("utils", function () {
+    describe("safeURLName", function () {
+      it("should encode urls with a % (COUCHDB-2342)", function () {
+        var res = app.utils.safeURLName("design%20foo");
+        assert.equal(res, "design%2520foo");
+      });
+    });
+  });
 });

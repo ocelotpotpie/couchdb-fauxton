@@ -93,15 +93,15 @@ function(app, FauxtonAPI, Components, Documents, Databases) {
         links: this.getNewButtonLinks()
       }];
 
-      this.insertView("#new-all-docs-button", new Components.MenuDropDown({
+      this.setView("#new-all-docs-button", new Components.MenuDropDown({
         links: newLinks,
       }));
 
-      this.insertView("#new-design-docs-button", new Components.MenuDropDown({
+      this.setView("#new-design-docs-button", new Components.MenuDropDown({
         links: newLinks,
       }));
 
-      _.each(this.designDocList, function (view) { view.remove();});
+      _.each(this.designDocList, function (view) { view.remove(); view = undefined;});
       this.designDocList = [];
 
       this.collection.each(function(design) {
@@ -156,6 +156,8 @@ function(app, FauxtonAPI, Components, Documents, Databases) {
     buildIndexList: function(designDocs, info){
       var design = this.model.id.replace(/^_design\//,"");
       var databaseId = this.model.database.id;
+
+      if (_.isUndefined(designDocs[info.selector])) { return; }
 
       this.insertView(".accordion-body", new Views.IndexItem({
         selector: info.selector,
@@ -225,7 +227,7 @@ function(app, FauxtonAPI, Components, Documents, Databases) {
       });
 
       this.renderIndexLists();
-      this.insertView(".new-button", new Components.MenuDropDown({
+      this.setView(".new-button", new Components.MenuDropDown({
         links: sideBarMenuLinks,
       }));
     }
